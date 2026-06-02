@@ -1,0 +1,25 @@
+/*heading style*/
+.heading{
+    background-color: #e5e79a;
+    padding:10px;
+}
+/* Element selector */
+h1{
+    text-align: center;
+}
+nav {
+    text-align: center;
+}
+nav a {
+    padding:10px;
+
+}
+.cta-button {
+    background-color: #007BFF;
+    color: white;
+}
+/* universal selector */
+* {
+    margin:10px;
+    padding: 10px;
+}
