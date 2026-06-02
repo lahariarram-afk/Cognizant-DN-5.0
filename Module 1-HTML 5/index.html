@@ -1,10 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #welcomeBanner {
+            background-color: blue;
+            text-align: center;
+            color: white;
+            /* font-weight: bolder; */
+            padding: 20px;
+        }
+
+        .highlight {
+            text-align: center;
+            font-weight: bold;
+            margin: 30px;
+            background-color: yellow;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            text-align: center;
+            width: 25%;
+            height: 150px;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+            /* object-fit: contain; */
+            display: block;
+            margin: auto;
+        }
+
+        #RegForm {
+            border: 2px solid;
+            border-radius: 10px;
+            text-align: center;
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        #RegForm input,
+        textarea,
+        label,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            text-align: center;
+            box-sizing: border-box;
+
+        }
+
+        form {
+            text-align: center;
+
+        }
+
+        .video-invite {
+            text-align: center;
+            margin: 30px;
+        }
+    </style>
 </head>
+
 <body>
     <nav>
         <a href="#home">Home</a>
@@ -13,13 +88,164 @@
         <a href="help.html" target="_blank">Help</a>
     </nav>
     <section id="home">
-        <p>This is home section</p>
+        <div id="welcomeBanner">
+            <h1>Local Community Event Portal</h1>
+        </div>
+        <div style="text-align:center;margin:30px;">
+            <span style="color:red;font-weight: bold;">
+                Special Offers!!
+            </span>
+        </div>
+
+        <div class="highlight">
+            Here,you can see the updates related to the community!
+        </div>
     </section>
     <section id="events">
-        <p>This is event section</p>
+        <table id="event-table">
+            <caption>
+                <h2>Community Events Gallery</h2>
+            </caption>
+
+            <tr>
+                <td>
+                    <img src="images/image6.avif" alt="Celebrating" title="Celebrating" class="imgStyle">
+                    <p>Volunteers celebrating the success of a local community outreach program.</p>
+                </td>
+                <td>
+                    <img src="images/image5.avif" alt="Meeting" title="Collaborating Event" class="imgStyle">
+                    <p>Community members collaborating to create a positive social impact.</p>
+                </td>
+                <td>
+                    <img src="images/image4.avif" alt="Donation Event" title="Donation Event" class="imgStyle">
+                    <p>Residents participating in a community cultural dance event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="images/image5.avif" alt="Gathering" title="Community Gathering" class="imgStyle">
+                    <p>Local citizens attending a community gathering and awareness program.</p>
+                </td>
+                <td>
+                    <img src="images/image6.avif" alt="Charity Event" title="Charity Support Event" class="imgStyle">
+                    <p>Volunteers organizing supplies for families in need.</p>
+                </td>
+                <td>
+                    <img src="images/comm6.avif" alt="Community Support" title="Community Support" class="imgStyle">
+                    <p>Helping hands united for a better and stronger community.</p>
+                </td>
+            </tr>
+        </table>
+        <div id="RegForm">
+            <form>
+                <h1>Event Registration form</h1>
+                <label>Name</label>
+                <input type="text" placeholder="Enter your name" required autofocus><br>
+                <label>Email</label>
+                <input type="email" placeholder="Enter your email" required autofocus><br>
+                <label>Date</label>
+                <input type="date" placeholder="Enter your date of birth" required autofocus><br>
+                <label>Event Type</label>
+                <select>
+                    <option>Dance event</option>
+                    <option>Cultural event</option>
+                    <option>Volunteer</option>
+                    <option>Donation Event</option>
+                    <option>Gathering</option>
+                </select>
+                <label>Message</label>
+                <textarea></textarea>
+                <button type="submit">Submit</button>
+                <output id="RegConf"></output>
+            </form>
+        </div>
+        <div id="RegForm">
+            <h1>Event Feedback form</h1>
+            <form>
+                Phone: <input type="text" onblur="validatePhone(this)">
+                <select onchange="showFee(this.value);savePreference()" id="eventselect">
+                    <option value="music">Music Fest - $10</option>
+                    <option value="sports">Sports Day - $5</option>
+                </select>
+                <button onclick="alert('Form submitted!')">Submit</button>
+            </form>
+
+            <img src="event.jpg" ondblclick="this.style.width='300px'">
+
+            <textarea onkeyup="countChars(this)"></textarea>
+            <p id="charCount"></p>
+
+        </div>
+    </section>
+    <section class="video-invite">
+        <h1>Event Video Promo</h1>
+        <video width="500" controls oncanplay="videoReady()">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <p id="videomsg"></p>
+    </section>
+    <section class="Geolocation">
+        <h1>Find near by events</h1>
+        <button onclick="findlocation()" type="button">Find nearby location</button>
+        <p class="location"></p>
     </section>
     <section id="contact">
         <p>This is contact section</p>
     </section>
+    <script>
+        document.getElementById("RegConf").addEventListener("submit", function (event) {
+            event.preventDefault();
+            document.getElementById("RegConf").value = "Thankyou,your form has been submitted";
+            this.reset();
+        })
+        function validatePhone(input) { if (!/^\d{10}$/.test(input.value)) alert("Invalid phone"); }
+        function showFee(val) { alert("Selected fee: " + (val === "music" ? "$10" : "$5")); }
+        function countChars(el) { document.getElementById('charCount').innerText = el.value.length + " chars"; }
+
+        function videoReady() {
+            document.getElementById("videomsg").innerText = "Video ready to play";
+        }
+        function savePreference(){
+            let selectedEvent=document.getElementById("eventslect").value;
+            localStorage.setItem("preferredEvent",selectedEvent);
+        }
+        window.onload=function(){
+            let savedEvent=localStorage.getItem("preferredEvent");
+            if(savedEvent){
+                document.getElementById("eventSelect").value=savedEvent;
+            }
+        }
+        function clearData(){
+            localStorage.clear();
+            sessionStorage.clear();
+            alert("Preferrences cleared");
+            location.reload();
+        }
+        function findlocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showposition, showerror, {
+                    enableHighAccuracy: true,
+                    timeout: 20000
+                })
+            } else {
+                alert("geolocator not supported");
+            }
+
+        }
+        function showposition(position){
+            document.getElementById("location").innerHTML="Lalitude"+position.coords.latitude+
+            "<br><br>Longitude"+position.coords.longitude;
+        }
+        function showerror (error){
+            if(error.code == error.PERMISSION_DENIED){
+                alert("Permisssion denied");
+            }else if(error.code == error.timeout){
+                alert("Timeout");
+            }else{
+                alert("Location not found");
+            }
+        }
+    </script>
 </body>
+
 </html>
